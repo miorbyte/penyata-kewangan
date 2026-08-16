@@ -473,6 +473,133 @@ footer.pagefoot{border-top:1px solid var(--rule);margin-top:60px;padding:26px 0 
   border-bottom:none !important;
 }
 
+
+/* =========================================================
+   PEMBETULAN V2 — SAIZ & KETEBALAN FONT DISERAGAMKAN
+   Semua amaun menggunakan saiz yang sama dalam:
+   1. Akaun Perdagangan
+   2. Akaun Untung Rugi
+   3. Penyata Pendapatan
+   4. Kunci Kira-Kira
+   ========================================================= */
+
+/* Saiz standard kandungan akaun */
+.t-account .t-line,
+.t-account .t-line .lbl,
+.t-account .t-line .ci,
+.t-account .t-line .co,
+.t-side.trade-side .t-line .c1,
+.t-side.trade-side .t-line .c2{
+  font-size:.88rem;
+}
+
+/* Semua amaun biasa: tidak bold */
+.t-account .t-line .ci,
+.t-account .t-line .co,
+.t-side.trade-side .t-line .c1,
+.t-side.trade-side .t-line .c2{
+  font-weight:400;
+}
+
+/* Baris biasa dalam Akaun Untung Rugi juga tidak bold */
+.t-account .t-line .co.wide{
+  font-size:.88rem;
+  font-weight:400;
+}
+
+/* Untung Kasar / Untung Bersih: amaun tidak diboldkan */
+.t-account .t-line.carry.gross-profit .co,
+.t-account .t-line.carry.gross-profit .co.wide{
+  font-size:.88rem;
+  font-weight:400;
+}
+
+/* Hanya jumlah/subjumlah penting boleh ditebalkan */
+.t-account .t-line.subtotal .ci,
+.t-account .t-line.subtotal .co{
+  font-weight:700;
+}
+
+.t-account .t-line.total .ci,
+.t-account .t-line.total .co,
+.t-account .t-line.total .co.wide{
+  font-size:.88rem;
+  font-weight:700;
+}
+
+/* Tajuk dan label kekal mempunyai hierarki, tetapi tidak mengubah amaun */
+.t-account .t-title .t-co{
+  font-size:1.12rem;
+}
+
+/* Penyata Pendapatan & Kunci Kira-Kira — saiz amaun standard */
+.stmt .srow,
+.stmt .srow .lab,
+.stmt .srow .val,
+.stmt .srow .v1,
+.stmt .srow .v2,
+.stmt .srow .v3{
+  font-size:.88rem;
+}
+
+.stmt .srow .val,
+.stmt .srow .v1,
+.stmt .srow .v2,
+.stmt .srow .v3{
+  font-weight:400;
+}
+
+/* Subjumlah dan jumlah sahaja yang bold */
+.stmt .srow.subtotal .v1,
+.stmt .srow.subtotal .v2{
+  font-weight:700;
+}
+
+.stmt .srow.sub .val{
+  font-weight:600;
+}
+
+.stmt .srow.total .v3{
+  font-size:.88rem;
+  font-weight:700;
+}
+
+/* Untung Kasar / Untung Bersih dalam penyata:
+   amaun tidak bold; label boleh kekal sebagai penekanan */
+.stmt .srow.gross-profit .val,
+.stmt .srow.profit-highlight .val{
+  font-size:.88rem;
+  font-weight:400;
+}
+
+.stmt .srow.gross-profit .v3,
+.stmt .srow.profit-highlight .v3{
+  font-weight:400;
+}
+
+/* Pastikan override responsive tidak mengecilkan amaun secara berlebihan */
+@media (max-width:480px){
+  .t-account .t-line,
+  .t-account .t-line .lbl,
+  .t-account .t-line .ci,
+  .t-account .t-line .co,
+  .t-side.trade-side .t-line .c1,
+  .t-side.trade-side .t-line .c2,
+  .stmt .srow,
+  .stmt .srow .lab,
+  .stmt .srow .val,
+  .stmt .srow .v1,
+  .stmt .srow .v2,
+  .stmt .srow .v3{
+    font-size:.84rem;
+  }
+
+  .t-account .t-line.total .co,
+  .stmt .srow.total .v3{
+    font-size:.84rem;
+  }
+}
+
 </style>
 </head>
 <body>
