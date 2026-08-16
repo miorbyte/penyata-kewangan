@@ -115,9 +115,7 @@ main{padding-bottom:80px;}
 /* ===== Ledger paper card (signature element) ===== */
 .ledger-card{
   position:relative;
-  background:
-    repeating-linear-gradient(var(--paper) 0 33px, rgba(15,157,104,0.055) 33px 34px);
-  background-color:var(--paper);
+  background:var(--paper);
   border:1px solid var(--rule);
   border-radius:16px;
   box-shadow:var(--shadow);
@@ -160,18 +158,56 @@ section.block > p.lead{color:var(--ink-soft);max-width:720px;margin:6px 0 0;}
 .col-hd{display:flex;align-items:baseline;gap:6px;padding-bottom:4px;margin-bottom:3px;border-bottom:1px solid var(--rule);}
 .col-hd .sp{flex:1;}
 .col-hd span.h{width:66px;text-align:right;font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);font-weight:700;}
-.t-line{display:flex;align-items:baseline;gap:6px;padding:4px 0;font-size:.87rem;border-bottom:1px dotted var(--rule);}
+.t-line{display:flex;align-items:baseline;gap:6px;padding:4px 0;font-size:.87rem;border-bottom:none;}
 .t-line .lbl{flex:1;}
 .t-line .ci{width:66px;text-align:right;font-family:'IBM Plex Mono',monospace;color:var(--ink-soft);white-space:nowrap;font-size:.83rem;}
 .t-line .co{width:66px;text-align:right;font-family:'IBM Plex Mono',monospace;white-space:nowrap;font-weight:700;}
 .t-line .co.wide{width:auto;}
 .t-line.indent .lbl{padding-left:12px;color:var(--ink-soft);font-size:.8rem;}
-.t-line.subtotal .lbl{font-weight:700;color:var(--ink);}
+.t-line.subtotal .lbl{font-weight:700;color:var(--ink);border-bottom:none;}
 .t-line.subtotal .ci{font-weight:700;color:var(--ink);}
-.t-line.total{border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);font-weight:700;margin-top:4px;padding-top:7px;}
+.t-line.subtotal > .ci:not(:empty),
+.t-line.subtotal > .co:not(:empty){
+  border-bottom:1px solid var(--ink);
+  padding-bottom:3px;
+}
+.t-line.total{
+  border-top:none;border-bottom:none;font-weight:700;margin-top:4px;padding-top:7px;
+}
+.t-line.total > .ci:not(:empty),
+.t-line.total > .co:not(:empty){
+  border-top:2px solid var(--ink);
+  border-bottom:2px solid var(--ink);
+  padding-top:4px;
+  padding-bottom:4px;
+}
 .t-line.total .co{color:var(--emerald-deep);font-size:1rem;}
 .t-line.carry .co{color:var(--emerald-deep);}
+.t-line.carry.gross-profit{background:rgba(245,183,0,0.18);border-radius:8px;padding-left:8px;padding-right:8px;font-weight:800;}
+.t-line.carry.gross-profit .lbl,.t-line.carry.gross-profit .co{font-weight:800;color:var(--ink);}
+.t-line.carry.gross-profit .co{color:var(--emerald-deep);font-size:1rem;}
+.t-line.carry.gross-profit{border-bottom:none;}
+
 .t-line.blank-row{border-bottom:1px dotted transparent;}
+.t-side.trade-side .col-hd span.h,
+.t-side.trade-side .t-line .c1,
+.t-side.trade-side .t-line .ci,
+.t-side.trade-side .t-line .c2,
+.t-side.trade-side .t-line .co{width:58px;text-align:right;font-family:'IBM Plex Mono',monospace;white-space:nowrap;}
+.t-side.trade-side .t-line .ci{color:var(--ink-soft);font-weight:500;}
+.t-side.trade-side .t-line .c2{color:var(--ink);font-weight:700;}
+.t-side.trade-side .t-line.operation{border-bottom:none;}
+.t-side.trade-side .t-line.operation > .c1:not(:empty),
+.t-side.trade-side .t-line.operation > .ci:not(:empty),
+.t-side.trade-side .t-line.operation > .c2:not(:empty),
+.t-side.trade-side .t-line.operation > .co:not(:empty){
+  border-bottom:2px solid var(--ink);
+  padding-bottom:3px;
+}
+.t-side.trade-side .t-line.gross-profit{background:rgba(245,183,0,0.18);border-radius:8px;padding-left:8px;padding-right:8px;font-weight:800;}
+.t-side.trade-side .t-line.gross-profit .co{color:var(--emerald-deep);font-size:1rem;}
+.t-side.trade-side .t-line.gross-profit{border-bottom:none;}
+
 
 /* ===== Statement (vertical) rows — 3 money columns: v1 (pelarasan) / v2 (komponen & subjumlah) / v3 (jumlah akhir bahagian) ===== */
 .stmt{min-width:520px;}
@@ -187,7 +223,7 @@ section.block > p.lead{color:var(--ink-soft);max-width:720px;margin:6px 0 0;}
 .stmt .colhead .v2{width:84px;}
 .stmt .colhead .v3{width:100px;}
 
-.srow{display:flex;align-items:baseline;padding:5px 0;border-bottom:1px dashed var(--rule);gap:6px;}
+.srow{display:flex;align-items:baseline;padding:5px 0;border-bottom:none;gap:6px;}
 .srow .lab{flex:1;font-size:.9rem;}
 .srow .val{font-family:'IBM Plex Mono',monospace;text-align:right;white-space:nowrap;}
 .srow .v1{width:64px;color:#7C948A;font-size:.82rem;}
@@ -201,10 +237,37 @@ section.block > p.lead{color:var(--ink-soft);max-width:720px;margin:6px 0 0;}
 .srow.subtotal{color:var(--ink);}
 .srow.subtotal .lab{font-weight:600;padding-left:16px;}
 .srow.subtotal .v1,.srow.subtotal .v2{font-weight:700;color:var(--ink);}
-.srow.sub{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);font-weight:600;}
+.srow.sub{border-top:none;border-bottom:none;font-weight:600;}
+.srow.sub > .val:not(:empty){
+  border-top:1px solid var(--ink);
+  border-bottom:1px solid var(--ink);
+  padding-top:3px;
+  padding-bottom:3px;
+}
 .srow.sub .v1,.srow.sub .v2{color:var(--ink-soft);}
-.srow.total{border-top:2px solid var(--ink);border-bottom:3px double var(--ink);font-weight:800;font-size:1rem;padding:8px 0;}
+.srow.total{
+  border-top:none;border-bottom:none;font-weight:800;font-size:1rem;padding:8px 0;
+}
+.srow.total > .v3:not(:empty){
+  border-top:2px solid var(--ink);
+  border-bottom:3px double var(--ink);
+  padding-top:5px;
+  padding-bottom:5px;
+}
 .srow.total .v3{color:var(--emerald-deep);}
+.srow.operation{border-bottom:none;}
+.srow.operation > .val:not(:empty){
+  border-bottom:2px solid var(--ink);
+  padding-bottom:3px;
+}
+.srow.gross-profit{background:rgba(245,183,0,0.18);border-radius:8px;padding-left:8px;padding-right:8px;}
+.srow.gross-profit .lab,.srow.gross-profit .val{font-weight:800;color:var(--ink);}
+.srow.gross-profit .v3{color:var(--emerald-deep);}
+.srow.gross-profit{border-bottom:none;}
+.srow.profit-highlight{background:rgba(245,183,0,0.18);border-radius:8px;padding-left:8px;padding-right:8px;}
+.srow.profit-highlight .lab,.srow.profit-highlight .val{font-weight:800;color:var(--ink);}
+.srow.profit-highlight .v3{color:var(--emerald-deep);}
+.srow.profit-highlight{border-bottom:none;} 
 .srow .neg::before{content:"(";}
 .srow .neg::after{content:")";}
 .srow .v1:empty,.srow .v2:empty,.srow .v3:empty{color:transparent;}
@@ -291,7 +354,8 @@ button.btn:active{transform:translateY(1px);}
 }
 #score-box .big{font-family:'Fraunces',serif;font-size:1.5rem;color:var(--emerald-deep);}
 
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:26px;}
+.two-col{display:flex;flex-direction:column;gap:26px;}
+.two-col > .ledger-card{width:100%;}
 @media (max-width:960px){
   .two-col{grid-template-columns:1fr;}
   .t-body{grid-template-columns:1fr;}
@@ -312,6 +376,103 @@ footer.pagefoot{border-top:1px solid var(--rule);margin-top:60px;padding:26px 0 
 .col-legend span{display:inline-flex;align-items:center;gap:6px;background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:5px 10px;}
 .col-legend b{font-family:'IBM Plex Mono',monospace;color:var(--ink);}
 .scroll-hint{font-size:.78rem;color:var(--ink-soft);margin-top:8px;}
+
+/* ===== FORMAT RUJUKAN NOTA KULIAH 6 ===== */
+#nota .t-account{min-width:760px;}
+#nota .t-side.trade-side{padding-left:18px;padding-right:18px;}
+#nota .t-side.trade-side .t-line{min-height:31px;}
+#nota .t-side.trade-side .t-line.operation{border-bottom:none;}
+.t-side.trade-side .t-line.operation > .c1:not(:empty),
+.t-side.trade-side .t-line.operation > .ci:not(:empty),
+.t-side.trade-side .t-line.operation > .c2:not(:empty),
+.t-side.trade-side .t-line.operation > .co:not(:empty){
+  border-bottom:2px solid var(--ink);
+  padding-bottom:3px;
+}
+#nota .t-side.trade-side .t-line.subtotal{border-bottom:none;}
+#nota .t-side.trade-side .t-line.subtotal > .ci:not(:empty),
+#nota .t-side.trade-side .t-line.subtotal > .co:not(:empty){
+  border-bottom:1px solid var(--ink);
+  padding-bottom:3px;
+}
+#nota .t-side.trade-side .t-line.carry.gross-profit{border-bottom:none;}
+#nota .t-side.trade-side .t-line.total{border-top:none;border-bottom:none;}
+#nota .t-side.trade-side .t-line.total > .ci:not(:empty),
+#nota .t-side.trade-side .t-line.total > .co:not(:empty){
+  border-top:2px solid var(--ink);
+  border-bottom:3px double var(--ink);
+  padding-top:4px;
+  padding-bottom:4px;
+}
+#nota .stmt{min-width:700px;}
+#nota .stmt .srow{min-height:31px;}
+#nota .stmt .srow.operation{border-bottom:none;}
+.srow.operation > .val:not(:empty){
+  border-bottom:2px solid var(--ink);
+  padding-bottom:3px;
+}
+#nota .stmt .srow.sub{border-top:none;border-bottom:none;}
+#nota .stmt .srow.gross-profit{border-bottom:none;}
+#nota .stmt .srow.profit-highlight{border-bottom:none;}
+#nota .stmt .srow.total{border-top:none;border-bottom:none;}
+#nota .stmt .srow.i1 .lab{padding-left:22px;}
+#nota .stmt .srow.i2 .lab{padding-left:42px;}
+#nota .source-format-note{font-size:.8rem;color:var(--ink-soft);margin-top:10px;}
+#nota .format-rule{height:0;border-top:2px solid var(--ink);margin:0 0 3px;}
+
+
+/* ===== PEMBETULAN FORMAT AKAUN: garisan pendek sahaja pada amaun ===== */
+.t-account .t-line,
+.stmt .srow{border-bottom:none;}
+
+.t-account .t-line.operation > .c1:not(:empty),
+.t-account .t-line.operation > .c2:not(:empty),
+.t-account .t-line.operation > .ci:not(:empty),
+.t-account .t-line.operation > .co:not(:empty){
+  border-bottom:2px solid var(--ink);
+  padding-bottom:3px;
+}
+
+.t-account .t-line.subtotal > .ci:not(:empty),
+.t-account .t-line.subtotal > .co:not(:empty){
+  border-bottom:1px solid var(--ink);
+  padding-bottom:3px;
+}
+
+.t-account .t-line.total > .ci:not(:empty),
+.t-account .t-line.total > .co:not(:empty){
+  border-top:2px solid var(--ink);
+  border-bottom:3px double var(--ink);
+  padding-top:4px;
+  padding-bottom:4px;
+}
+
+.stmt .srow.operation > .val:not(:empty){
+  border-bottom:2px solid var(--ink);
+  padding-bottom:3px;
+}
+
+.stmt .srow.sub > .val:not(:empty){
+  border-top:1px solid var(--ink);
+  border-bottom:1px solid var(--ink);
+  padding-top:3px;
+  padding-bottom:3px;
+}
+
+.stmt .srow.total > .v3:not(:empty){
+  border-top:2px solid var(--ink);
+  border-bottom:3px double var(--ink);
+  padding-top:5px;
+  padding-bottom:5px;
+}
+
+/* Tiada garisan tambahan untuk baris highlight keuntungan. */
+.t-account .t-line.gross-profit,
+.stmt .srow.gross-profit,
+.stmt .srow.profit-highlight{
+  border-bottom:none !important;
+}
+
 </style>
 </head>
 <body>
@@ -377,8 +538,8 @@ footer.pagefoot{border-top:1px solid var(--rule);margin-top:60px;padding:26px 0 
           </div>
         </div>
         <div class="col-legend">
-          <span><b>Lajur 1</b> — item pelarasan (Tolak / Tambah)</span>
-          <span><b>Lajur 2</b> — komponen &amp; subjumlah kerja</span>
+          <span><b>Lajur 1</b> — amaun pelarasan / operasi</span>
+          <span><b>Lajur 2</b> — komponen, kos &amp; jumlah kerja</span>
           <span><b>Lajur 3</b> — jumlah akhir bagi setiap bahagian</span>
         </div>
         <p class="lead" style="margin-top:16px;">Contoh di bawah menggunakan <span class="scenario-name">Perniagaan Aman Makmur</span>, dengan set akaun yang lebih lengkap — termasuk belanja terakru, prabayar, hutang lapuk, peruntukan hutang ragu, susut nilai dua kaedah, ambilan barang niaga dan faedah pinjaman — supaya anda biasa dengan pelbagai jenis akaun sebelum mencuba latihan.</p>
@@ -386,50 +547,52 @@ footer.pagefoot{border-top:1px solid var(--rule);margin-top:60px;padding:26px 0 
 
       <!-- AKAUN PERDAGANGAN -->
       <section class="block">
-        <div class="block-head"><h2>Akaun Perdagangan</h2><span class="tag">Bentuk Akaun / T &middot; 2 lajur setiap belah</span></div>
-        <p class="lead">Setiap belah kini ada <strong>2 lajur RM</strong>: lajur kerja (kiri) untuk item &amp; subjumlah pengiraan, dan lajur akhir (kanan) untuk angka yang benar-benar dikira ke dalam <strong>Jumlah</strong>. Di sebelah debit, kos jualan dibina langkah demi langkah — Belian Bersih &rarr; Kos Belian &rarr; Kos Barang untuk Dijual &rarr; tolak Stok Akhir &rarr; Kos Jualan — sebelum Untung Kasar dibawa ke bawah untuk menyeimbangkan dengan Jualan Bersih di sebelah kredit.</p>
+        <div class="block-head"><h2>Akaun Perdagangan</h2><span class="tag">Bentuk Akaun / T &middot; 3 lajur RM setiap belah</span></div>
+        <p class="lead">Format ini mengikut rujukan Nota Kuliah 6: <strong>Stok Awal</strong> dan <strong>Kos Belian</strong> berada di kolum ke-2 dari kanan, manakala butir belian dan belanja belian berada di kolum ke-3 dari kanan. Selepas Kos Belian diperoleh, amaunnya diletakkan di kolum ke-2 dan ditambah dengan Stok Awal untuk mendapatkan <strong>Kos Barang untuk Dijual</strong>. Setiap operasi Tambah/Tolak mempunyai garisan di bawahnya.</p>
         <div class="ledger-card">
           <div class="t-account" style="border:none;">
             <div class="t-title"><span class="t-co">Perniagaan Aman Makmur</span><small>Akaun Perdagangan bagi tahun berakhir 31 Disember</small></div>
             <div class="t-body">
-              <div class="t-side">
+              <div class="t-side trade-side">
                 <div class="side-label">Debit</div>
-                <div class="col-hd"><span class="sp"></span><span class="h">RM</span><span class="h">RM</span></div>
-                <div class="t-line"><span class="lbl">Stok Awal</span><span class="ci">8,000</span><span class="co"></span></div>
-                <div class="t-line"><span class="lbl">Belian</span><span class="ci">52,000</span><span class="co"></span></div>
-                <div class="t-line indent"><span class="lbl">Tolak: Pulangan Belian</span><span class="ci">(1,200)</span><span class="co"></span></div>
-                <div class="t-line indent"><span class="lbl">Tolak: Ambilan Barang Niaga</span><span class="ci">(800)</span><span class="co"></span></div>
-                <div class="t-line subtotal"><span class="lbl">Belian Bersih</span><span class="ci">50,000</span><span class="co"></span></div>
-                <div class="t-line indent"><span class="lbl">Tambah: Angkutan Masuk</span><span class="ci">1,000</span><span class="co"></span></div>
-                <div class="t-line subtotal"><span class="lbl">Kos Belian</span><span class="ci">51,000</span><span class="co"></span></div>
-                <div class="t-line subtotal"><span class="lbl">Kos Barang untuk Dijual</span><span class="ci">59,000</span><span class="co"></span></div>
-                <div class="t-line indent"><span class="lbl">Tolak: Stok Akhir</span><span class="ci">(9,500)</span><span class="co"></span></div>
-                <div class="t-line"><span class="lbl">Kos Jualan</span><span class="ci"></span><span class="co">49,500</span></div>
-                <div class="t-line carry"><span class="lbl">Untung Kasar</span><span class="ci"></span><span class="co">44,000</span></div>
-                <div class="t-line total"><span class="lbl">Jumlah</span><span class="ci"></span><span class="co">93,500</span></div>
+                <div class="col-hd"><span class="sp"></span><span class="h">RM</span><span class="h">RM</span><span class="h">RM</span></div>
+                <div class="t-line"><span class="lbl">Stok Awal</span><span class="c1"></span><span class="ci">8,000</span><span class="co"></span></div>
+                <div class="t-line"><span class="lbl">Belian</span><span class="c1">52,000</span><span class="ci"></span><span class="co"></span></div>
+                <div class="t-line indent operation"><span class="lbl">Tolak: Pulangan Belian</span><span class="c1">(1,200)</span><span class="ci"></span><span class="co"></span></div>
+                <div class="t-line indent operation"><span class="lbl">Tolak: Ambilan Barang Niaga</span><span class="c1">(800)</span><span class="ci"></span><span class="co"></span></div>
+                <div class="t-line subtotal"><span class="lbl">Belian Bersih</span><span class="c1"></span><span class="ci">50,000</span><span class="co"></span></div>
+                <div class="t-line indent operation"><span class="lbl">Tambah: Angkutan Masuk</span><span class="c1">1,000</span><span class="ci"></span><span class="co"></span></div>
+                <div class="t-line subtotal"><span class="lbl">Kos Belian</span><span class="c1"></span><span class="ci">51,000</span><span class="co"></span></div>
+                <div class="t-line indent operation"><span class="lbl">Tambah: Stok Awal</span><span class="c1"></span><span class="ci">8,000</span><span class="co"></span></div>
+                <div class="t-line subtotal"><span class="lbl">Kos Barang untuk Dijual</span><span class="c1"></span><span class="ci">59,000</span><span class="co"></span></div>
+                <div class="t-line indent operation"><span class="lbl">Tolak: Stok Akhir</span><span class="c1">(9,500)</span><span class="ci"></span><span class="co"></span></div>
+                <div class="t-line"><span class="lbl">Kos Jualan</span><span class="c1"></span><span class="ci"></span><span class="co">49,500</span></div>
+                <div class="t-line carry gross-profit"><span class="lbl">Untung Kasar</span><span class="c1"></span><span class="ci"></span><span class="co">44,000</span></div>
+                <div class="t-line total"><span class="lbl">Jumlah</span><span class="c1"></span><span class="ci"></span><span class="co">93,500</span></div>
               </div>
-              <div class="t-side">
+              <div class="t-side trade-side">
                 <div class="side-label">Kredit</div>
-                <div class="col-hd"><span class="sp"></span><span class="h">RM</span><span class="h">RM</span></div>
-                <div class="t-line"><span class="lbl">Jualan</span><span class="ci">95,000</span><span class="co"></span></div>
-                <div class="t-line indent"><span class="lbl">Tolak: Pulangan Jualan</span><span class="ci">(1,500)</span><span class="co"></span></div>
-                <div class="t-line"><span class="lbl">Jualan Bersih</span><span class="ci"></span><span class="co">93,500</span></div>
-                <div class="t-line blank-row"><span class="lbl">&nbsp;</span><span class="ci">&nbsp;</span><span class="co">&nbsp;</span></div>
-                <div class="t-line blank-row"><span class="lbl">&nbsp;</span><span class="ci">&nbsp;</span><span class="co">&nbsp;</span></div>
-                <div class="t-line blank-row"><span class="lbl">&nbsp;</span><span class="ci">&nbsp;</span><span class="co">&nbsp;</span></div>
-                <div class="t-line blank-row"><span class="lbl">&nbsp;</span><span class="ci">&nbsp;</span><span class="co">&nbsp;</span></div>
-                <div class="t-line blank-row"><span class="lbl">&nbsp;</span><span class="ci">&nbsp;</span><span class="co">&nbsp;</span></div>
-                <div class="t-line blank-row"><span class="lbl">&nbsp;</span><span class="ci">&nbsp;</span><span class="co">&nbsp;</span></div>
-                <div class="t-line blank-row"><span class="lbl">&nbsp;</span><span class="ci">&nbsp;</span><span class="co">&nbsp;</span></div>
-                <div class="t-line blank-row"><span class="lbl">&nbsp;</span><span class="ci">&nbsp;</span><span class="co">&nbsp;</span></div>
-                <div class="t-line blank-row"><span class="lbl">&nbsp;</span><span class="ci">&nbsp;</span><span class="co">&nbsp;</span></div>
-                <div class="t-line total"><span class="lbl">Jumlah</span><span class="ci"></span><span class="co">93,500</span></div>
+                <div class="col-hd"><span class="sp"></span><span class="h">RM</span><span class="h">RM</span><span class="h">RM</span></div>
+                <div class="t-line"><span class="lbl">Jualan</span><span class="c1"></span><span class="ci">95,000</span><span class="co"></span></div>
+                <div class="t-line indent operation"><span class="lbl">Tolak: Pulangan Jualan</span><span class="c1">(1,500)</span><span class="ci"></span><span class="co"></span></div>
+                <div class="t-line"><span class="lbl">Jualan Bersih</span><span class="c1"></span><span class="ci"></span><span class="co">93,500</span></div>
+                <div class="t-line blank-row"><span class="lbl">&nbsp;</span><span class="c1">&nbsp;</span><span class="ci">&nbsp;</span><span class="co">&nbsp;</span></div>
+                <div class="t-line blank-row"><span class="lbl">&nbsp;</span><span class="c1">&nbsp;</span><span class="ci">&nbsp;</span><span class="co">&nbsp;</span></div>
+                <div class="t-line blank-row"><span class="lbl">&nbsp;</span><span class="c1">&nbsp;</span><span class="ci">&nbsp;</span><span class="co">&nbsp;</span></div>
+                <div class="t-line blank-row"><span class="lbl">&nbsp;</span><span class="c1">&nbsp;</span><span class="ci">&nbsp;</span><span class="co">&nbsp;</span></div>
+                <div class="t-line blank-row"><span class="lbl">&nbsp;</span><span class="c1">&nbsp;</span><span class="ci">&nbsp;</span><span class="co">&nbsp;</span></div>
+                <div class="t-line blank-row"><span class="lbl">&nbsp;</span><span class="c1">&nbsp;</span><span class="ci">&nbsp;</span><span class="co">&nbsp;</span></div>
+                <div class="t-line blank-row"><span class="lbl">&nbsp;</span><span class="c1">&nbsp;</span><span class="ci">&nbsp;</span><span class="co">&nbsp;</span></div>
+                <div class="t-line blank-row"><span class="lbl">&nbsp;</span><span class="c1">&nbsp;</span><span class="ci">&nbsp;</span><span class="co">&nbsp;</span></div>
+                <div class="t-line blank-row"><span class="lbl">&nbsp;</span><span class="c1">&nbsp;</span><span class="ci">&nbsp;</span><span class="co">&nbsp;</span></div>
+                <div class="t-line total"><span class="lbl">Jumlah</span><span class="c1"></span><span class="ci"></span><span class="co">93,500</span></div>
               </div>
             </div>
           </div>
         </div>
         <div class="scroll-hint">&larr; Skrol mendatar jika jadual terpotong pada skrin kecil.</div>
-        <div class="note-callout"><strong>Nota:</strong> Hanya nombor dalam lajur kanan (Kos Jualan + Untung Kasar) dijumlahkan untuk dapat "Jumlah" 93,500. Lajur kiri hanya kerja pengiraan.</div>
+        <div class="source-format-note"><strong>Rujukan lajur:</strong> kolum ke-3 dari kanan = butir operasi/pelarasan; kolum ke-2 dari kanan = Stok Awal, Kos Belian dan subjumlah; kolum paling kanan = jumlah akhir.</div>
+        <div class="note-callout"><strong>Nota format:</strong> Belian dan semua pelarasan kos belian berada di kolum ke-3 dari kanan. <strong>Kos Belian RM51,000</strong> dipindahkan ke kolum ke-2 dan ditambah dengan <strong>Stok Awal RM8,000</strong> untuk mendapatkan <strong>Kos Barang untuk Dijual RM59,000</strong>. Jumlah akhir debit dan kredit adalah sama, iaitu <strong>RM93,500</strong>.</div>
       </section>
 
       <!-- AKAUN UNTUNG RUGI -->
@@ -454,13 +617,13 @@ footer.pagefoot{border-top:1px solid var(--rule);margin-top:60px;padding:26px 0 
                 <div class="t-line"><span class="lbl">Susut Nilai — Perabot &amp; Lengkapan</span><span class="co wide">1,000</span></div>
                 <div class="t-line"><span class="lbl">Susut Nilai — Kenderaan</span><span class="co wide">2,400</span></div>
                 <div class="t-line"><span class="lbl">Faedah Pinjaman</span><span class="co wide">500</span></div>
-                <div class="t-line carry"><span class="lbl">Untung Bersih</span><span class="co wide">21,530</span></div>
+                <div class="t-line carry gross-profit"><span class="lbl">Untung Bersih</span><span class="co wide">21,530</span></div>
                 <div class="t-line total"><span class="lbl">Jumlah</span><span class="co wide">48,650</span></div>
               </div>
               <div class="t-side">
                 <div class="side-label">Kredit</div>
                 <div class="col-hd"><span class="sp"></span><span class="h">RM</span></div>
-                <div class="t-line"><span class="lbl">Untung Kasar b/t</span><span class="co wide">44,000</span></div>
+                <div class="t-line carry gross-profit"><span class="lbl">Untung Kasar b/t</span><span class="co wide">44,000</span></div>
                 <div class="t-line"><span class="lbl">Hasil Sewa Diterima</span><span class="co wide">3,300</span></div>
                 <div class="t-line"><span class="lbl">Komisen Diterima</span><span class="co wide">1,350</span></div>
                 <div class="t-line blank-row"><span class="lbl">&nbsp;</span><span class="co wide">&nbsp;</span></div>
@@ -479,7 +642,7 @@ footer.pagefoot{border-top:1px solid var(--rule);margin-top:60px;padding:26px 0 
       <!-- PENYATA PENDAPATAN -->
       <section class="block">
         <div class="block-head"><h2>Penyata Pendapatan</h2><span class="tag">Bentuk Penyata / 3 Lajur</span></div>
-        <p class="lead">Format moden yang menggabungkan Akaun Perdagangan &amp; Akaun Untung Rugi dalam satu penyata menegak dengan <strong>3 lajur RM</strong>: Lajur 1 (pelarasan Tolak/Tambah), Lajur 2 (komponen &amp; subjumlah kerja), Lajur 3 (jumlah akhir setiap bahagian).</p>
+        <p class="lead">Format ini mengikut bentuk penyata dalam Nota Kuliah 6 dengan <strong>3 lajur RM</strong>. Jualan dan Pulangan Jualan diletakkan pada <strong>kolum yang sama</strong>; butir kos belian berada di kolum kerja, manakala Kos Belian, Stok Awal dan Kos Barang untuk Dijual berada di kolum ke-2 dari kanan.</p>
         <div class="ledger-card">
           <div class="stmt" style="margin:0 auto;">
             <div class="stmt-title">
@@ -490,21 +653,22 @@ footer.pagefoot{border-top:1px solid var(--rule);margin-top:60px;padding:26px 0 
             <div class="colhead"><span class="lab">Perkara</span><span class="v1">RM</span><span class="v2">RM</span><span class="v3">RM</span></div>
 
             <div class="srow"><span class="lab">Jualan</span><span class="val v1"></span><span class="val v2">95,000</span><span class="val v3"></span></div>
-            <div class="srow i1"><span class="lab">Tolak: Pulangan Jualan</span><span class="val v1 neg">1,500</span><span class="val v2"></span><span class="val v3"></span></div>
+            <div class="srow i1 operation"><span class="lab">Tolak: Pulangan Jualan</span><span class="val v1"></span><span class="val v2 neg">1,500</span><span class="val v3"></span></div>
             <div class="srow sub"><span class="lab">Jualan Bersih</span><span class="val v1"></span><span class="val v2"></span><span class="val v3">93,500</span></div>
 
             <div class="srow head"><span class="lab">Tolak: Kos Jualan</span><span class="v1"></span><span class="v2"></span><span class="v3"></span></div>
             <div class="srow i1"><span class="lab">Stok Awal</span><span class="val v1"></span><span class="val v2">8,000</span><span class="val v3"></span></div>
             <div class="srow i1"><span class="lab">Belian</span><span class="val v1">52,000</span><span class="val v2"></span><span class="val v3"></span></div>
-            <div class="srow i2"><span class="lab">Tolak: Pulangan Belian</span><span class="val v1 neg">1,200</span><span class="val v2"></span><span class="val v3"></span></div>
-            <div class="srow i2"><span class="lab">Tolak: Ambilan Barang Niaga</span><span class="val v1 neg">800</span><span class="val v2"></span><span class="val v3"></span></div>
-            <div class="srow i1 subtotal"><span class="lab">Belian Bersih</span><span class="val v1">50,000</span><span class="val v2"></span><span class="val v3"></span></div>
-            <div class="srow i2"><span class="lab">Tambah: Angkutan Masuk</span><span class="val v1">1,000</span><span class="val v2"></span><span class="val v3"></span></div>
+            <div class="srow i2 operation"><span class="lab">Tolak: Pulangan Belian</span><span class="val v1 neg">1,200</span><span class="val v2"></span><span class="val v3"></span></div>
+            <div class="srow i2 operation"><span class="lab">Tolak: Ambilan Barang Niaga</span><span class="val v1 neg">800</span><span class="val v2"></span><span class="val v3"></span></div>
+            <div class="srow i1 subtotal"><span class="lab">Belian Bersih</span><span class="val v1"></span><span class="val v2">50,000</span><span class="val v3"></span></div>
+            <div class="srow i2 operation"><span class="lab">Tambah: Angkutan Masuk</span><span class="val v1">1,000</span><span class="val v2"></span><span class="val v3"></span></div>
             <div class="srow subtotal"><span class="lab">Kos Belian</span><span class="val v1"></span><span class="val v2">51,000</span><span class="val v3"></span></div>
+            <div class="srow i2 operation"><span class="lab">Tambah: Stok Awal</span><span class="val v1"></span><span class="val v2">8,000</span><span class="val v3"></span></div>
             <div class="srow subtotal"><span class="lab">Kos Barang untuk Dijual</span><span class="val v1"></span><span class="val v2">59,000</span><span class="val v3"></span></div>
-            <div class="srow i2"><span class="lab">Tolak: Stok Akhir</span><span class="val v1 neg">9,500</span><span class="val v2"></span><span class="val v3"></span></div>
+            <div class="srow i2 operation"><span class="lab">Tolak: Stok Akhir</span><span class="val v1"></span><span class="val v2 neg">9,500</span><span class="val v3"></span></div>
             <div class="srow sub"><span class="lab">Kos Jualan</span><span class="val v1"></span><span class="val v2"></span><span class="val v3">49,500</span></div>
-            <div class="srow total"><span class="lab">Untung Kasar</span><span class="val v1"></span><span class="val v2"></span><span class="val v3">44,000</span></div>
+            <div class="srow total gross-profit"><span class="lab">Untung Kasar</span><span class="val v1"></span><span class="val v2"></span><span class="val v3">44,000</span></div>
 
             <div class="srow head"><span class="lab">Tambah: Hasil Lain</span><span class="v1"></span><span class="v2"></span><span class="v3"></span></div>
             <div class="srow i1"><span class="lab">Hasil Sewa Diterima (3,600 &minus; 300)</span><span class="val v1"></span><span class="val v2">3,300</span><span class="val v3"></span></div>
@@ -524,7 +688,7 @@ footer.pagefoot{border-top:1px solid var(--rule);margin-top:60px;padding:26px 0 
             <div class="srow i1"><span class="lab">Susut Nilai — Kenderaan</span><span class="val v1"></span><span class="val v2">2,400</span><span class="val v3"></span></div>
             <div class="srow i1"><span class="lab">Faedah Pinjaman</span><span class="val v1"></span><span class="val v2">500</span><span class="val v3"></span></div>
             <div class="srow sub"><span class="lab">Jumlah Belanja</span><span class="val v1"></span><span class="val v2"></span><span class="val v3">27,120</span></div>
-            <div class="srow total"><span class="lab">Untung Bersih</span><span class="val v1"></span><span class="val v2"></span><span class="val v3">21,530</span></div>
+            <div class="srow total profit-highlight"><span class="lab">Untung Bersih</span><span class="val v1"></span><span class="val v2"></span><span class="val v3">21,530</span></div>
           </div>
         </div>
       </section>
@@ -532,7 +696,7 @@ footer.pagefoot{border-top:1px solid var(--rule);margin-top:60px;padding:26px 0 
       <!-- KUNCI KIRA-KIRA -->
       <section class="block">
         <div class="block-head"><h2>Kunci Kira-Kira</h2><span class="tag">Bentuk Penyata / Modal Kerja / 3 Lajur</span></div>
-        <p class="lead">Aset Semasa ditolak dengan Liabiliti Semasa untuk mendapat <strong>Modal Kerja</strong>; Aset Bukan Semasa + Modal Kerja mesti sama dengan jumlah "Dibiayai Oleh" (Ekuiti Pemilik + Liabiliti Bukan Semasa). Item Liabiliti Semasa diletak di Lajur 1 kerana ia pelarasan (tolakan) kepada Aset Semasa.</p>
+        <p class="lead">Format mengikut bentuk penyata Nota Kuliah 6: amaun setiap <strong>Aset Semasa</strong> berada di kolum ke-3 dari kanan, <strong>jumlah Aset Semasa</strong> di kolum ke-2 dari kanan, kemudian ditolak Liabiliti Semasa untuk mendapatkan Modal Kerja. Dalam Ekuiti Pemilik, Modal Awal, Untung Bersih dan Ambilan berada pada kolum yang sama.</p>
         <div class="ledger-card">
           <div class="stmt" style="margin:0 auto;">
             <div class="stmt-title">
@@ -548,13 +712,13 @@ footer.pagefoot{border-top:1px solid var(--rule);margin-top:60px;padding:26px 0 
             <div class="srow sub"><span class="lab">Jumlah Aset Bukan Semasa</span><span class="val v1"></span><span class="val v2"></span><span class="val v3">15,600</span></div>
 
             <div class="srow head"><span class="lab">Aset Semasa</span><span class="v1"></span><span class="v2"></span><span class="v3"></span></div>
-            <div class="srow i1"><span class="lab">Stok Akhir</span><span class="val v1"></span><span class="val v2">9,500</span><span class="val v3"></span></div>
-            <div class="srow i1"><span class="lab">Penghutang (6,000 &minus; Peruntukan 320)</span><span class="val v1"></span><span class="val v2">5,680</span><span class="val v3"></span></div>
-            <div class="srow i1"><span class="lab">Insurans Prabayar</span><span class="val v1"></span><span class="val v2">300</span><span class="val v3"></span></div>
-            <div class="srow i1"><span class="lab">Komisen Belum Diterima</span><span class="val v1"></span><span class="val v2">150</span><span class="val v3"></span></div>
-            <div class="srow i1"><span class="lab">Tunai di Bank</span><span class="val v1"></span><span class="val v2">4,200</span><span class="val v3"></span></div>
-            <div class="srow i1"><span class="lab">Tunai di Tangan</span><span class="val v1"></span><span class="val v2">800</span><span class="val v3"></span></div>
-            <div class="srow sub"><span class="lab">Jumlah Aset Semasa</span><span class="val v1"></span><span class="val v2"></span><span class="val v3">20,630</span></div>
+            <div class="srow i1"><span class="lab">Stok Akhir</span><span class="val v1">9,500</span><span class="val v2"></span><span class="val v3"></span></div>
+            <div class="srow i1"><span class="lab">Penghutang (6,000 &minus; Peruntukan 320)</span><span class="val v1">5,680</span><span class="val v2"></span><span class="val v3"></span></div>
+            <div class="srow i1"><span class="lab">Insurans Prabayar</span><span class="val v1">300</span><span class="val v2"></span><span class="val v3"></span></div>
+            <div class="srow i1"><span class="lab">Komisen Belum Diterima</span><span class="val v1">150</span><span class="val v2"></span><span class="val v3"></span></div>
+            <div class="srow i1"><span class="lab">Tunai di Bank</span><span class="val v1">4,200</span><span class="val v2"></span><span class="val v3"></span></div>
+            <div class="srow i1"><span class="lab">Tunai di Tangan</span><span class="val v1">800</span><span class="val v2"></span><span class="val v3"></span></div>
+            <div class="srow sub"><span class="lab">Jumlah Aset Semasa</span><span class="val v1"></span><span class="val v2">20,630</span><span class="val v3"></span></div>
 
             <div class="srow head"><span class="lab">Tolak: Liabiliti Semasa</span><span class="v1"></span><span class="v2"></span><span class="v3"></span></div>
             <div class="srow i1"><span class="lab">Pemiutang</span><span class="val v1">2,150</span><span class="val v2"></span><span class="val v3"></span></div>
@@ -569,8 +733,8 @@ footer.pagefoot{border-top:1px solid var(--rule);margin-top:60px;padding:26px 0 
 
             <div class="srow head divider"><span class="lab">Dibiayai Oleh: Ekuiti Pemilik</span><span class="v1"></span><span class="v2"></span><span class="v3"></span></div>
             <div class="srow i1"><span class="lab">Modal Awal</span><span class="val v1"></span><span class="val v2">10,000</span><span class="val v3"></span></div>
-            <div class="srow i1"><span class="lab">Tambah: Untung Bersih</span><span class="val v1">21,530</span><span class="val v2"></span><span class="val v3"></span></div>
-            <div class="srow i1"><span class="lab">Tolak: Ambilan (3,000 tunai + 800 barang)</span><span class="val v1 neg">3,800</span><span class="val v2"></span><span class="val v3"></span></div>
+            <div class="srow i1 profit-highlight"><span class="lab">Tambah: Untung Bersih</span><span class="val v1"></span><span class="val v2">21,530</span><span class="val v3"></span></div>
+            <div class="srow i1 operation"><span class="lab">Tolak: Ambilan (3,000 tunai + 800 barang)</span><span class="val v1"></span><span class="val v2 neg">3,800</span><span class="val v3"></span></div>
             <div class="srow sub"><span class="lab">Modal Akhir</span><span class="val v1"></span><span class="val v2"></span><span class="val v3">27,730</span></div>
 
             <div class="srow head"><span class="lab">Liabiliti Bukan Semasa</span><span class="v1"></span><span class="v2"></span><span class="v3"></span></div>
@@ -703,7 +867,7 @@ footer.pagefoot{border-top:1px solid var(--rule);margin-top:60px;padding:26px 0 
 
       <section class="block">
         <div class="block-head"><h2>Lengkapkan Penyata</h2><span class="tag">27 tempat kosong &middot; 3 lajur</span></div>
-        <p class="lead">Isikan setiap petak kosong dengan angka sahaja (contoh: <span class="mono">62135</span> atau <span class="mono">62,135</span>, tanpa "RM"). <strong>Lajur 1</strong> = pelarasan Tolak/Tambah, <strong>Lajur 2</strong> = komponen &amp; subjumlah kerja, <strong>Lajur 3</strong> = jumlah akhir setiap bahagian. Klik <strong>Semak Jawapan</strong> apabila selesai.</p>
+        <p class="lead">Isikan setiap petak kosong dengan angka sahaja (contoh: <span class="mono">62135</span> atau <span class="mono">62,135</span>, tanpa "RM"). <strong>Lajur 1</strong> = amaun pelarasan, <strong>Lajur 2</strong> = komponen dan jumlah kerja, <strong>Lajur 3</strong> = jumlah akhir setiap bahagian. Klik <strong>Semak Jawapan</strong> apabila selesai.</p>
 
         <div class="two-col">
           <!-- PENYATA PENDAPATAN -->
@@ -717,21 +881,21 @@ footer.pagefoot{border-top:1px solid var(--rule);margin-top:60px;padding:26px 0 
               <div class="colhead"><span class="lab">Perkara</span><span class="v1">RM</span><span class="v2">RM</span><span class="v3">RM</span></div>
 
               <div class="srow"><span class="lab">Jualan</span><span class="val v1"></span><span class="val v2">165,000</span><span class="val v3"></span></div>
-              <div class="srow i1"><span class="lab">Tolak: Pulangan Jualan</span><span class="val v1 neg">2,500</span><span class="val v2"></span><span class="val v3"></span></div>
+              <div class="srow i1 operation"><span class="lab">Tolak: Pulangan Jualan</span><span class="val v1"></span><span class="val v2 neg">2,500</span><span class="val v3"></span></div>
               <div class="srow sub"><span class="lab">Jualan Bersih</span><span class="val v1"></span><span class="val v2"></span><span class="val v3"><input class="blank" data-id="q1" data-answer="162500" placeholder="?"></span></div>
 
               <div class="srow head"><span class="lab">Tolak: Kos Jualan</span><span class="v1"></span><span class="v2"></span><span class="v3"></span></div>
               <div class="srow i1"><span class="lab">Stok Awal</span><span class="val v1"></span><span class="val v2">12,000</span><span class="val v3"></span></div>
               <div class="srow i1"><span class="lab">Belian</span><span class="val v1">85,000</span><span class="val v2"></span><span class="val v3"></span></div>
-              <div class="srow i2"><span class="lab">Tolak: Pulangan Belian</span><span class="val v1 neg">1,800</span><span class="val v2"></span><span class="val v3"></span></div>
-              <div class="srow i2"><span class="lab">Tolak: Ambilan Barang Niaga</span><span class="val v1 neg">1,200</span><span class="val v2"></span><span class="val v3"></span></div>
+              <div class="srow i2 operation"><span class="lab">Tolak: Pulangan Belian</span><span class="val v1 neg">1,800</span><span class="val v2"></span><span class="val v3"></span></div>
+              <div class="srow i2 operation"><span class="lab">Tolak: Ambilan Barang Niaga</span><span class="val v1 neg">1,200</span><span class="val v2"></span><span class="val v3"></span></div>
               <div class="srow i1 subtotal"><span class="lab">Belian Bersih</span><span class="val v1"><input class="blank" data-id="q2" data-answer="82000" placeholder="?"></span><span class="val v2"></span><span class="val v3"></span></div>
-              <div class="srow i2"><span class="lab">Tambah: Angkutan Masuk</span><span class="val v1">1,800</span><span class="val v2"></span><span class="val v3"></span></div>
+              <div class="srow i2 operation"><span class="lab">Tambah: Angkutan Masuk</span><span class="val v1">1,800</span><span class="val v2"></span><span class="val v3"></span></div>
               <div class="srow subtotal"><span class="lab">Kos Belian</span><span class="val v1"></span><span class="val v2"><input class="blank" data-id="q3" data-answer="83800" placeholder="?"></span><span class="val v3"></span></div>
               <div class="srow subtotal"><span class="lab">Kos Barang untuk Dijual</span><span class="val v1"></span><span class="val v2">95,800</span><span class="val v3"></span></div>
-              <div class="srow i2"><span class="lab">Tolak: Stok Akhir</span><span class="val v1 neg">15,500</span><span class="val v2"></span><span class="val v3"></span></div>
+              <div class="srow i2 operation"><span class="lab">Tolak: Stok Akhir</span><span class="val v1"></span><span class="val v2 neg">15,500</span><span class="val v3"></span></div>
               <div class="srow sub"><span class="lab">Kos Jualan</span><span class="val v1"></span><span class="val v2"></span><span class="val v3"><input class="blank" data-id="q4" data-answer="80300" placeholder="?"></span></div>
-              <div class="srow total"><span class="lab">Untung Kasar</span><span class="val v1"></span><span class="val v2"></span><span class="val v3"><input class="blank" data-id="q5" data-answer="82200" placeholder="?"></span></div>
+              <div class="srow total gross-profit"><span class="lab">Untung Kasar</span><span class="val v1"></span><span class="val v2"></span><span class="val v3"><input class="blank" data-id="q5" data-answer="82200" placeholder="?"></span></div>
 
               <div class="srow head"><span class="lab">Tambah: Hasil Lain</span><span class="v1"></span><span class="v2"></span><span class="v3"></span></div>
               <div class="srow i1"><span class="lab">Hasil Sewa (3,600 &minus; 300)</span><span class="val v1"></span><span class="val v2"><input class="blank" data-id="q6" data-answer="3300" placeholder="?"></span><span class="val v3"></span></div>
@@ -771,13 +935,13 @@ footer.pagefoot{border-top:1px solid var(--rule);margin-top:60px;padding:26px 0 
               <div class="srow sub"><span class="lab">Jumlah Aset Bukan Semasa</span><span class="val v1"></span><span class="val v2"></span><span class="val v3"><input class="blank" data-id="q20" data-answer="66400" placeholder="?"></span></div>
 
               <div class="srow head"><span class="lab">Aset Semasa</span><span class="v1"></span><span class="v2"></span><span class="v3"></span></div>
-              <div class="srow i1"><span class="lab">Stok Akhir</span><span class="val v1"></span><span class="val v2">15,500</span><span class="val v3"></span></div>
+              <div class="srow i1"><span class="lab">Stok Akhir</span><span class="val v1">15,500</span><span class="val v2"></span><span class="val v3"></span></div>
               <div class="srow i1"><span class="lab">Penghutang (17,700 &minus; Peruntukan 885)</span><span class="val v1"></span><span class="val v2"><input class="blank" data-id="q21" data-answer="16815" placeholder="?"></span><span class="val v3"></span></div>
-              <div class="srow i1"><span class="lab">Insurans Prabayar</span><span class="val v1"></span><span class="val v2">600</span><span class="val v3"></span></div>
-              <div class="srow i1"><span class="lab">Komisen Belum Diterima</span><span class="val v1"></span><span class="val v2">200</span><span class="val v3"></span></div>
-              <div class="srow i1"><span class="lab">Tunai di Bank</span><span class="val v1"></span><span class="val v2">15,400</span><span class="val v3"></span></div>
-              <div class="srow i1"><span class="lab">Tunai di Tangan</span><span class="val v1"></span><span class="val v2">1,200</span><span class="val v3"></span></div>
-              <div class="srow sub"><span class="lab">Jumlah Aset Semasa</span><span class="val v1"></span><span class="val v2"></span><span class="val v3"><input class="blank" data-id="q22" data-answer="49715" placeholder="?"></span></div>
+              <div class="srow i1"><span class="lab">Insurans Prabayar</span><span class="val v1">600</span><span class="val v2"></span><span class="val v3"></span></div>
+              <div class="srow i1"><span class="lab">Komisen Belum Diterima</span><span class="val v1">200</span><span class="val v2"></span><span class="val v3"></span></div>
+              <div class="srow i1"><span class="lab">Tunai di Bank</span><span class="val v1">15,400</span><span class="val v2"></span><span class="val v3"></span></div>
+              <div class="srow i1"><span class="lab">Tunai di Tangan</span><span class="val v1">1,200</span><span class="val v2"></span><span class="val v3"></span></div>
+              <div class="srow sub"><span class="lab">Jumlah Aset Semasa</span><span class="val v1"></span><span class="val v2"><input class="blank" data-id="q22" data-answer="49715" placeholder="?"></span></div>
 
               <div class="srow head"><span class="lab">Tolak: Liabiliti Semasa</span><span class="v1"></span><span class="v2"></span><span class="v3"></span></div>
               <div class="srow i1"><span class="lab">Pemiutang</span><span class="val v1">14,000</span><span class="val v2"></span><span class="val v3"></span></div>
@@ -792,8 +956,8 @@ footer.pagefoot{border-top:1px solid var(--rule);margin-top:60px;padding:26px 0 
 
               <div class="srow head divider"><span class="lab">Dibiayai Oleh: Ekuiti Pemilik</span><span class="v1"></span><span class="v2"></span><span class="v3"></span></div>
               <div class="srow i1"><span class="lab">Modal Awal</span><span class="val v1"></span><span class="val v2">60,800</span><span class="val v3"></span></div>
-              <div class="srow i1"><span class="lab">Tambah: Untung Bersih</span><span class="val v1">25,065</span><span class="val v2"></span><span class="val v3"></span></div>
-              <div class="srow i1"><span class="lab">Tolak: Ambilan (6,000 + 1,200)</span><span class="val v1 neg">7,200</span><span class="val v2"></span><span class="val v3"></span></div>
+              <div class="srow i1 profit-highlight"><span class="lab">Tambah: Untung Bersih</span><span class="val v1"></span><span class="val v2">25,065</span><span class="val v3"></span></div>
+              <div class="srow i1 operation"><span class="lab">Tolak: Ambilan (6,000 + 1,200)</span><span class="val v1"></span><span class="val v2 neg">7,200</span><span class="val v3"></span></div>
               <div class="srow sub"><span class="lab">Modal Akhir</span><span class="val v1"></span><span class="val v2"></span><span class="val v3"><input class="blank" data-id="q26" data-answer="78665" placeholder="?"></span></div>
 
               <div class="srow head"><span class="lab">Liabiliti Bukan Semasa</span><span class="v1"></span><span class="v2"></span><span class="v3"></span></div>
